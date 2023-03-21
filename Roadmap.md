@@ -8,7 +8,7 @@ Potential enhancements include:
 - make it easy to create new conversations, and leave behind a record of old conversations
 - add utilities to work with input and output files; e.g., convert a JSON output file to nicely formatted text
 - more options for input and output
-- add more input validation
+- add more input validation and error checking
 - subtract the number of input tokens from `max_tokens`
 - add logging
-- output number of tokens used to logs
+- output number of tokens used to logging
