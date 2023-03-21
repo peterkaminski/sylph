@@ -1,3 +1,7 @@
+#!/usr/bin/env python
+
+# Sylph v1.0.0 - https://github.com/peterkaminski/sylph
+
 import os
 import argparse
 import json
