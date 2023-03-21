@@ -1,6 +1,6 @@
 # Sylph - conversational interaction with OpenAI Chat Completion API
 
-Sylph is a Python script that interacts with the OpenAI Chat Completion API to generate responses based on a given input JSON file. It appends the generated response to the `messages` list with the role "assistant" and saves the result to an output JSON file. This architecture allows the output file, perhaps with another "user" message added, or with other edits, to be fed back as input, enabling a conversational loop.
+Sylph is a Python script that interacts with the OpenAI Chat Completion API to generate responses based on a given input JSON file. The cool thing about Sylph: the input and output JSON structures are identical, enabling conversational loops. Just append a new message in the output and feed it back as input!
 
 Sylph was first created by Peter Kaminski and ChatGPT (GPT-4) on 2023-03-21. Peter guided ChatGPT, and ChatGPT wrote all the code. See the [[Names]] and [[Prompts]] Markdown files and the Git commit log for background. See [[Roadmap]] for thoughts on future development.
 
