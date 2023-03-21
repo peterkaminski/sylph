@@ -1,10 +1,14 @@
 import openai
 import sys
 import argparse
+import os
 
 # Function to call ChatGPT API
 def call_chatgpt(prompt):
-    openai.api_key = "your_api_key_here"
+    openai.api_key = os.environ.get("OPENAI_API_KEY")
+
+    if not openai.api_key:
+        raise ValueError("Please set the 'OPENAI_API_KEY' environment variable")
 
     response = openai.Completion.create(
         engine="text-davinci-002",
