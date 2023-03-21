@@ -4,6 +4,8 @@ Sylph is a Python script that interacts with the OpenAI Chat Completion API to g
 
 Sylph was first created by Peter Kaminski and ChatGPT (GPT-4) on 2023-03-21. Peter guided ChatGPT, and ChatGPT wrote all the code. See the [[Names]] and [[Prompts]] Markdown files and the Git commit log for background. See [[Roadmap]] for thoughts on future development.
 
+Comments and bug reports are welcome at <https://github.com/peterkaminski/sylph/issues>, and I'm happy to review pull requests.
+
 The first version used the Completion endpoint and the `text-davinci-002` model, but we switched it to use the Chat Completion endpoint and `gpt-3.5-turbo` to get to v1.
 
 Note, there may be some breaking architectural or input/output method changes in future versions to make it easier to add a prompt to the output and feed it back as the input.
@@ -56,7 +58,13 @@ You can copy `env.sh-template` to `env.sh`, add your API key to it, and then use
 3. Run the program with the input JSON file and specify the output JSON file path:
 
 ```bash
-python chatgpt_api_interaction.py --input input.json --output output.json
+python sylph.py --input input.json --output output.json
+```
+
+Or you can change directory to where `sylph.py` is located and run it as an executable:
+
+```bash
+./sylph.py --input input.json --output output.json
 ```
 
 The generated response will be appended to the messages list with the role "assistant" and saved in the output JSON file.
