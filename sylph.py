@@ -22,7 +22,7 @@ def call_chatgpt(input_data):
         raise Exception(f"Request failed with status code {response.status_code}: {response.text}")
 
     response_json = response.json()
-    return response_json['choices'][0]['message']['content']
+    return response_json['choices'][0]['message']
 
 def read_input(input_file):
     with open(input_file, 'r') as f:
@@ -33,9 +33,9 @@ def read_input(input_file):
 
     return data
 
-def save_output(output_file, input_data, response_text):
+def save_output(output_file, input_data, response_message):
     output_data = input_data.copy()
-    output_data['response'] = response_text
+    output_data['messages'].append(response_message)
 
     with open(output_file, 'w') as f:
         json.dump(output_data, f, indent=2)
@@ -47,8 +47,8 @@ def main():
     args = parser.parse_args()
 
     input_data = read_input(args.input)
-    response_text = call_chatgpt(input_data)
-    save_output(args.output, input_data, response_text)
+    response_message = call_chatgpt(input_data)
+    save_output(args.output, input_data, response_message)
     print(f"Input and response saved to {args.output}")
 
 if __name__ == "__main__":
