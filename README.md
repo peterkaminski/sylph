@@ -6,7 +6,7 @@ Sylph was first created by Peter Kaminski and ChatGPT (GPT-4) on 2023-03-21. Pet
 
 Comments and bug reports are welcome at <https://github.com/peterkaminski/sylph/issues>, and I'm happy to review pull requests.
 
-The first version used the Completion endpoint and the `text-davinci-002` model, but we switched it to use the Chat Completion endpoint and `gpt-3.5-turbo` to get to v1.
+The first version used the Completion endpoint and the `text-davinci-002` model, but we switched it to use the Chat Completion endpoint and `gpt-3.5-turbo` to get to Sylph v1.
 
 Note, there may be some breaking architectural or input/output method changes in future versions to make it easier to add a prompt to the output and feed it back as the input.
 
