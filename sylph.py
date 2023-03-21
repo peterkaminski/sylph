@@ -23,11 +23,31 @@ def call_chatgpt(prompt):
 def read_input(input_file):
     with open(input_file, 'r') as f:
         data = json.load(f)
-        return data['choices'][0]['text'].strip()
+        return data['prompt']
 
 def save_output(output_file, response):
+    response_dict = {
+        'id': response.id,
+        'object': response.object,
+        'created': response.created,
+        'model': response.model,
+        'usage': {
+            'prompt_tokens': response.usage['prompt_tokens'],
+            'completion_tokens': response.usage['completion_tokens'],
+            'total_tokens': response.usage['total_tokens']
+        },
+        'choices': [
+            {
+                'text': choice.text,
+                'index': choice.index,
+                'logprobs': None,
+                'finish_reason': choice.finish_reason
+            } for choice in response.choices
+        ]
+    }
+
     with open(output_file, 'w') as f:
-        json.dump(response, f, indent=2)
+        json.dump(response_dict, f, indent=2)
 
 def main():
     parser = argparse.ArgumentParser(description="Interact with ChatGPT")
@@ -38,7 +58,7 @@ def main():
     user_input = read_input(args.input)
     response = call_chatgpt(user_input)
     save_output(args.output, response)
-    print(f"Raw API output saved to {args.output}")
+    print(f"Raw API input and output saved to {args.output}")
 
 if __name__ == "__main__":
     main()
