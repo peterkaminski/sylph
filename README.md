@@ -1,6 +1,8 @@
-# Sylph - conversational interaction with OpenAI Chat Completion API
+# Sylph - conversation with the OpenAI Chat Completion API
 
-Sylph is a Python script that interacts with the OpenAI Chat Completion API to generate responses based on a given input JSON file. The cool thing about Sylph: the input and output JSON structures are identical, enabling conversational loops. Just append a new message in the output and feed it back as input!
+Sylph is a command-line Python script that interacts with the OpenAI Chat Completion API, the API version of ChatGPT.
+
+The cool thing about Sylph: the input and output JSON structures are identical, enabling conversational loops. Just append a new `user` message in the output and feed it back as input!
 
 Sylph was first created by Peter Kaminski and ChatGPT (GPT-4) on 2023-03-21. Peter guided ChatGPT, and ChatGPT wrote all the code. See the [[Names]] and [[Prompts]] Markdown files and the Git commit log for background. See [[Roadmap]] for thoughts on future development.
 
@@ -26,7 +28,7 @@ pip install requests
 
 ## Usage
 
-1. Set the OPENAI_API_KEY environment variable to your OpenAI API key:
+Set the OPENAI_API_KEY environment variable to your OpenAI API key:
 
 ```bash
 export OPENAI_API_KEY="your_openai_api_key_here"
@@ -34,7 +36,7 @@ export OPENAI_API_KEY="your_openai_api_key_here"
 
 You can copy `env.sh-template` to `env.sh`, add your API key to it, and then use `source env.sh` to add your API key to the environment.
 
-2. Prepare an input JSON file with the following format:
+Prepare an input JSON file with the following format:
 
 ```json
 {
@@ -55,9 +57,9 @@ You can copy `env.sh-template` to `env.sh`, add your API key to it, and then use
 }
 ```
 
-For more information about the values in this file, read about the "chat format" in the [Chat completion introduction](https://platform.openai.com/docs/guides/chat/introduction) and the [Chat Completion API Reference](https://platform.openai.com/docs/api-reference/chat).
+**For more information about the values in this file,** read about the "chat format" in the [Chat completion introduction](https://platform.openai.com/docs/guides/chat/introduction) and the [Chat Completion API Reference](https://platform.openai.com/docs/api-reference/chat).
 
-3. Run the program with the input JSON file and specify the output JSON file path:
+Run the program with the input JSON file and specify the output JSON file path:
 
 ```bash
 python sylph.py --input input.json --output output.json
