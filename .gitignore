@@ -1,6 +1,10 @@
 # auth
 env.sh
 
+# output
+*.txt
+*.json
+
 # macOS
 .DS_Store
 
