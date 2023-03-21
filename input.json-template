@@ -1,8 +1,16 @@
 {
   "engine": "text-davinci-002",
-  "prompt": "Enter your prompt for ChatGPT",
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a helpful assistant."
+    },
+    {
+      "role": "user",
+      "content": "What is the capital of France?"
+    }
+  ],
   "max_tokens": 150,
   "n": 1,
-  "stop": null,
   "temperature": 0.5
 }

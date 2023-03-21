@@ -9,16 +9,17 @@ def call_chatgpt(input_data):
     if not openai.api_key:
         raise ValueError("Please set the 'OPENAI_API_KEY' environment variable")
 
-    response = openai.Completion.create(
-        engine=input_data["engine"],
-        prompt=input_data["prompt"],
+    messages = input_data["messages"]
+
+    response = openai.ChatCompletion.create(
+        model=input_data["engine"],
+        messages=messages,
         max_tokens=input_data["max_tokens"],
         n=input_data["n"],
-        stop=input_data["stop"],
         temperature=input_data["temperature"],
     )
 
-    return response.choices[0].text.strip()
+    return response.choices[0].message['content']
 
 def read_input(input_file):
     with open(input_file, 'r') as f:

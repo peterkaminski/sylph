@@ -1,6 +1,6 @@
 # Prompts
 
-These are the prompts to ChatGPT which created the initial program.
+(These are the prompts to ChatGPT which created the initial program.)
 
 write a python program that interacts with the chatgpt api. it should take input from stdin, and output to either a file or stdout, based on an argument.
 
@@ -14,3 +14,4 @@ modify it so it reads input from a JSON file with the same format as the raw API
 
 no, the output format is still using the API output format. change it so the output format is the same as the input format.
 
+now change it so it uses the chat completion endpoint, rather than the completion endpoint
