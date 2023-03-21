@@ -25,3 +25,5 @@ thanks. now i am getting this error: openai.error.InvalidRequestError: Invalid U
 (I got a 404 "Invalid URL (POST /v1/chat/completions)" error and asked ChatGPT about it. It backtracked and wanted me to go back to the completion endpoint. But I fixed the problem by setting the model to "gpt-3.5-turbo" insted of "text-davinci-002". As OpenAPI notes, "Because gpt-3.5-turbo performs at a similar capability to text-davinci-003 but at 10% the price per token, we recommend gpt-3.5-turbo for most use cases.")
 
 actually, the previous code was fine, I fixed the problem by setting the model to "gpt-3.5-turbo" instead of "text-davinci-002". now, with the previous code, modify it so the response is appended to the messages list, with the role "assistant"
+
+create a README.md file for the resulting program
