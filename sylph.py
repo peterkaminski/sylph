@@ -1,9 +1,8 @@
 import openai
-import sys
-import argparse
 import os
+import argparse
+import json
 
-# Function to call ChatGPT API
 def call_chatgpt(prompt):
     openai.api_key = os.environ.get("OPENAI_API_KEY")
 
@@ -21,28 +20,36 @@ def call_chatgpt(prompt):
 
     return response.choices[0].text.strip()
 
-# Function to output to stdout
-def output_stdout(text):
-    print(text)
+def read_input(input_file):
+    with open(input_file, 'r') as f:
+        data = json.load(f)
+        return data['role'], data['input']
 
-# Function to output to a file
-def output_file(text, file_path):
-    with open(file_path, "w") as f:
-        f.write(text)
+def save_output(output_file, role, user_input, response):
+    data = {
+        "user": {
+            "role": "user",
+            "input": user_input
+        },
+        "assistant": {
+            "role": "assistant",
+            "output": response
+        }
+    }
+
+    with open(output_file, 'w') as f:
+        json.dump(data, f, indent=2)
 
 def main():
     parser = argparse.ArgumentParser(description="Interact with ChatGPT")
-    parser.add_argument("-f", "--file", help="Specify the output file path")
+    parser.add_argument("-i", "--input", required=True, help="Specify the input JSON file path")
+    parser.add_argument("-o", "--output", required=True, help="Specify the output JSON file path")
     args = parser.parse_args()
 
-    user_input = input("Enter your prompt for ChatGPT: ")
+    role, user_input = read_input(args.input)
     response = call_chatgpt(user_input)
-
-    if args.file:
-        output_file(response, args.file)
-        print(f"ChatGPT response saved to {args.file}")
-    else:
-        output_stdout(response)
+    save_output(args.output, role, user_input, response)
+    print(f"User input and ChatGPT response saved to {args.output}")
 
 if __name__ == "__main__":
     main()

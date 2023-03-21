@@ -1,0 +1,10 @@
+{
+  "user": {
+    "role": "user",
+    "input": "Enter your prompt for ChatGPT"
+  },
+  "assistant": {
+    "role": "assistant",
+    "output": "Generated response from ChatGPT"
+  }
+}
