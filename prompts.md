@@ -11,3 +11,6 @@ modify the program so it saves the input and output in a json file, and so it re
 modify it so the output is the raw output from the API, and the input reads a JSON file in the same format as the raw output from the API
 
 modify it so it reads input from a JSON file with the same format as the raw API input and saves the output as in the same format as raw API input to a JSON file.
+
+no, the output format is still using the API output format. change it so the output format is the same as the input format.
+

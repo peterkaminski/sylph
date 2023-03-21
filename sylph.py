@@ -3,51 +3,34 @@ import os
 import argparse
 import json
 
-def call_chatgpt(prompt):
+def call_chatgpt(input_data):
     openai.api_key = os.environ.get("OPENAI_API_KEY")
 
     if not openai.api_key:
         raise ValueError("Please set the 'OPENAI_API_KEY' environment variable")
 
     response = openai.Completion.create(
-        engine="text-davinci-002",
-        prompt=prompt,
-        max_tokens=150,
-        n=1,
-        stop=None,
-        temperature=0.5,
+        engine=input_data["engine"],
+        prompt=input_data["prompt"],
+        max_tokens=input_data["max_tokens"],
+        n=input_data["n"],
+        stop=input_data["stop"],
+        temperature=input_data["temperature"],
     )
 
-    return response
+    return response.choices[0].text.strip()
 
 def read_input(input_file):
     with open(input_file, 'r') as f:
         data = json.load(f)
-        return data['prompt']
+    return data
 
-def save_output(output_file, response):
-    response_dict = {
-        'id': response.id,
-        'object': response.object,
-        'created': response.created,
-        'model': response.model,
-        'usage': {
-            'prompt_tokens': response.usage['prompt_tokens'],
-            'completion_tokens': response.usage['completion_tokens'],
-            'total_tokens': response.usage['total_tokens']
-        },
-        'choices': [
-            {
-                'text': choice.text,
-                'index': choice.index,
-                'logprobs': None,
-                'finish_reason': choice.finish_reason
-            } for choice in response.choices
-        ]
-    }
+def save_output(output_file, input_data, response_text):
+    output_data = input_data.copy()
+    output_data['response'] = response_text
 
     with open(output_file, 'w') as f:
-        json.dump(response_dict, f, indent=2)
+        json.dump(output_data, f, indent=2)
 
 def main():
     parser = argparse.ArgumentParser(description="Interact with ChatGPT")
@@ -55,10 +38,10 @@ def main():
     parser.add_argument("-o", "--output", required=True, help="Specify the output JSON file path")
     args = parser.parse_args()
 
-    user_input = read_input(args.input)
-    response = call_chatgpt(user_input)
-    save_output(args.output, response)
-    print(f"Raw API input and output saved to {args.output}")
+    input_data = read_input(args.input)
+    response_text = call_chatgpt(input_data)
+    save_output(args.output, input_data, response_text)
+    print(f"Input and response saved to {args.output}")
 
 if __name__ == "__main__":
     main()
