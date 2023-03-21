@@ -18,27 +18,16 @@ def call_chatgpt(prompt):
         temperature=0.5,
     )
 
-    return response.choices[0].text.strip()
+    return response
 
 def read_input(input_file):
     with open(input_file, 'r') as f:
         data = json.load(f)
-        return data['role'], data['input']
+        return data['choices'][0]['text'].strip()
 
-def save_output(output_file, role, user_input, response):
-    data = {
-        "user": {
-            "role": "user",
-            "input": user_input
-        },
-        "assistant": {
-            "role": "assistant",
-            "output": response
-        }
-    }
-
+def save_output(output_file, response):
     with open(output_file, 'w') as f:
-        json.dump(data, f, indent=2)
+        json.dump(response, f, indent=2)
 
 def main():
     parser = argparse.ArgumentParser(description="Interact with ChatGPT")
@@ -46,10 +35,10 @@ def main():
     parser.add_argument("-o", "--output", required=True, help="Specify the output JSON file path")
     args = parser.parse_args()
 
-    role, user_input = read_input(args.input)
+    user_input = read_input(args.input)
     response = call_chatgpt(user_input)
-    save_output(args.output, role, user_input, response)
-    print(f"User input and ChatGPT response saved to {args.output}")
+    save_output(args.output, response)
+    print(f"Raw API output saved to {args.output}")
 
 if __name__ == "__main__":
     main()
