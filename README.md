@@ -55,6 +55,8 @@ You can copy `env.sh-template` to `env.sh`, add your API key to it, and then use
 }
 ```
 
+For more information about the values in this file, read about the "chat format" in the [Chat completion introduction](https://platform.openai.com/docs/guides/chat/introduction) and the [Chat Completion API Reference](https://platform.openai.com/docs/api-reference/chat).
+
 3. Run the program with the input JSON file and specify the output JSON file path:
 
 ```bash
