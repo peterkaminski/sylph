@@ -1,25 +1,28 @@
-import openai
 import os
 import argparse
 import json
+import requests
 
 def call_chatgpt(input_data):
-    openai.api_key = os.environ.get("OPENAI_API_KEY")
+    api_key = os.environ.get("OPENAI_API_KEY")
 
-    if not openai.api_key:
+    if not api_key:
         raise ValueError("Please set the 'OPENAI_API_KEY' environment variable")
 
-    messages = input_data["messages"]
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {api_key}"
+    }
 
-    response = openai.ChatCompletion.create(
-        model=input_data["engine"],
-        messages=messages,
-        max_tokens=input_data["max_tokens"],
-        n=input_data["n"],
-        temperature=input_data["temperature"],
-    )
+    url = "https://api.openai.com/v1/chat/completions"
 
-    return response.choices[0].message['content']
+    response = requests.post(url, headers=headers, json=input_data)
+
+    if response.status_code != 200:
+        raise Exception(f"Request failed with status code {response.status_code}: {response.text}")
+
+    response_json = response.json()
+    return response_json['choices'][0]['message']['content']
 
 def read_input(input_file):
     with open(input_file, 'r') as f:
@@ -29,6 +32,7 @@ def read_input(input_file):
         raise KeyError("The 'messages' key is missing in the input JSON file")
 
     return data
+
 def save_output(output_file, input_data, response_text):
     output_data = input_data.copy()
     output_data['response'] = response_text
