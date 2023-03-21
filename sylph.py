@@ -24,8 +24,11 @@ def call_chatgpt(input_data):
 def read_input(input_file):
     with open(input_file, 'r') as f:
         data = json.load(f)
-    return data
 
+    if "messages" not in data:
+        raise KeyError("The 'messages' key is missing in the input JSON file")
+
+    return data
 def save_output(output_file, input_data, response_text):
     output_data = input_data.copy()
     output_data['response'] = response_text
